@@ -10,6 +10,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class BandFixture extends Fixture //implements DependentFixtureInterface
 {
+    public const ADMIN_USER_REFERENCE = 'niortk';
+
     public function load(ObjectManager $manager): void
     {
         $band1 = new ConcertBand();
@@ -17,6 +19,8 @@ class BandFixture extends Fixture //implements DependentFixtureInterface
 
         $manager->persist($band1);
         $manager->flush();
+
+        $this->addReference(self::ADMIN_USER_REFERENCE,$band1);
     }
 
     /*public function getDependencies()

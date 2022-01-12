@@ -13,7 +13,15 @@ class ArtistFixture extends Fixture
         $artist1 = new ConcertArtist();
         $artist1->setName("Gilmour")
                 ->setFirstName("David");
+        $artist1->setBand($this->getReference(BandFixture::ADMIN_USER_REFERENCE));
         $manager->persist($artist1);
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            BandFixture::class,
+        ];
     }
 }

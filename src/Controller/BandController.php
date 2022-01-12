@@ -2,27 +2,31 @@
 
 namespace App\Controller;
 
+use App\Entity\Band;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class BandController extends AbstractController
 {
     /**
-     * @Route("/concert", name="concert")
+     * @Route("/band", name="band")
      */
-    public function indexAction(): Response
+    public function index(): Response
     {
-        return $this->render('concert/index.html.twig', [
-            'controller_name' => 'Licence APIDAE',
+        return $this->render('band/index.html.twig', [
+            'controller_name' => 'BandController',
         ]);
     }
-
+    /**
+     * @Route("/bands", name="bands_list")
+     */
     public function listAction(): Response
     {
-        return $this->render('list/index.html.twig', [
-            'controller_name' => 'ListController',
-            'groupes' => ['Muse','Pink Floyd','Queen'],
+        $bandRepo = $this->getDoctrine()->getRepository(Band::class);
+        $band = $bandRepo->findAll();
+        return $this->render('band/list.html.twig', [
+            'controller_name' => 'BandController',
+            'groupes' => $band,
         ]);
     }
 }

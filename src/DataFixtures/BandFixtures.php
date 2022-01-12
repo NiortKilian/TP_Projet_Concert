@@ -17,7 +17,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
         // $product = new Product();
         // $manager->persist($product);
         $b1 = new Band();
-        $b1->setName("Pink Floyd")
+        $b1->setName("Pink Floy d")
             ->setStyle("Rock")
             ->addMember($this->getReference(ArtistFixtures::ARTIST_PINK_FLOYD_1))
             ->addMember($this->getReference(ArtistFixtures::ARTIST_PINK_FLOYD_2))

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ConcertController extends AbstractController
+class BandController extends AbstractController
 {
     /**
      * @Route("/concert", name="concert")

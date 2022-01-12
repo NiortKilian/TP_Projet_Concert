@@ -34,16 +34,16 @@ class Band
      */
     private $members;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=style::class, inversedBy="bands")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $style;
 
     /**
      * @ORM\OneToMany(targetEntity=Concert::class, mappedBy="band")
      */
     private $concerts;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $style;
 
     public function __construct()
     {
@@ -110,18 +110,6 @@ class Band
         return $this;
     }
 
-    public function getStyle(): ?style
-    {
-        return $this->style;
-    }
-
-    public function setStyle(?style $style): self
-    {
-        $this->style = $style;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Concert[]
      */
@@ -148,6 +136,18 @@ class Band
                 $concert->setBand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStyle(): ?string
+    {
+        return $this->style;
+    }
+
+    public function setStyle(string $style): self
+    {
+        $this->style = $style;
 
         return $this;
     }

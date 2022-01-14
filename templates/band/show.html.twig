@@ -15,10 +15,10 @@
 </head>
 <body>
 {% block body %}
-    <h1>Liste des groupes : </h1>
-    {% for band in bands %}
+    <h1>Membres du groupe : </h1>
+    {% for artist in artists %}
         <div>
-            {{ band.name }}
+            {{ artist.band }}
         </div>
     {% endfor %}
 {% endblock %}

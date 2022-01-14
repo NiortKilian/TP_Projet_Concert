@@ -25,12 +25,17 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $first_name;
+    private $firstname;
 
     /**
      * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="members")
      */
     private $band;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pictures;
 
     public function getId(): ?int
     {
@@ -51,12 +56,12 @@ class Artist
 
     public function getFirstName(): ?string
     {
-        return $this->first_name;
+        return $this->firstname;
     }
 
     public function setFirstName(string $first_name): self
     {
-        $this->first_name = $first_name;
+        $this->firstname = $first_name;
 
         return $this;
     }
@@ -69,6 +74,18 @@ class Artist
     public function setBand(?Band $band): self
     {
         $this->band = $band;
+
+        return $this;
+    }
+
+    public function getPictures(): ?string
+    {
+        return $this->pictures;
+    }
+
+    public function setPictures(?string $pictures): self
+    {
+        $this->pictures = $pictures;
 
         return $this;
     }

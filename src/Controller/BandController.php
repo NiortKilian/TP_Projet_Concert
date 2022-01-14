@@ -6,6 +6,8 @@ use App\Entity\Artist;
 use App\Entity\Band;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use function Sodium\add;
 
 class BandController extends AbstractController
 {
@@ -32,12 +34,12 @@ class BandController extends AbstractController
     }
 
     /**
-     * @Route(/bands/{id} name="band_show")
+     * @Route("/bands/{id}", name="band_show")
      */
-    public function showAction(): Response
+    public function showAction($id): Response
     {
         $artistRepo = $this->getDoctrine()->getRepository(Artist::class);
-        $artist = $artistRepo->findAll();
+        $artist = $artistRepo->findBy(["band"=>$id]);
         return $this->render('band/show.html.twig',[
            'controller-name' => 'BandController',
            'artists' => $artist,

@@ -1,26 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
-</head>
-<body>
+{% extends "base.html.twig" %}
 {% block body %}
+    {% include "navbar.html.twig" %}
     <h1>Liste des groupes : </h1>
-    {% for band in bands %}
-        <div>
-            {{ band.name }}
-        </div>
-    {% endfor %}
+    <div class="container" style="background-color: lightsalmon">
+        {% for band in bands %}
+            <div class="card" style="width: 18rem; border-color: green; border-width: 5px" >
+                <img class="card-img-top" src="images/{{ band.pictures }}" alt="Card image cap">
+                <div class="card-body" style="background-color: #5eb5e0;">
+                    <a href="https://webinfo.iutmontp.univ-montp2.fr/~niortk/concertProject/public/bands/{{band.id}}" class="btn btn-primary" style="background-color: purple; border-color: orange; border-width: 5px; color: magenta">{{ band.name }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
-</body>
-</html>
+

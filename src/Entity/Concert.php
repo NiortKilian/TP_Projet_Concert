@@ -33,7 +33,7 @@ class Concert
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=concert::class, inversedBy="concerts")
+     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="concerts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $band;

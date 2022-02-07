@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Concert;
+use App\Entity\ConcertHall;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Concert|null find($id, $lockMode = null, $lockVersion = null)
- * @method Concert|null findOneBy(array $criteria, array $orderBy = null)
- * @method Concert[]    findAll()
- * @method Concert[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ConcertHall|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ConcertHall|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ConcertHall[]    findAll()
+ * @method ConcertHall[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ConcertRepository extends ServiceEntityRepository
+class ConcertHallRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Concert::class);
+        parent::__construct($registry, ConcertHall::class);
     }
 
     // /**
-    //  * @return Show[] Returns an array of Show objects
+    //  * @return ConcertHall[] Returns an array of ConcertHall objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ConcertRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Show
+    public function findOneBySomeField($value): ?ConcertHall
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

@@ -1,16 +1,21 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
+
 {% block body %}
-    {% include "navbar.html.twig" %}
-    <h1>Liste des groupes : </h1>
-    <div class="container" style="background-color: lightsalmon">
-        {% for band in bands %}
-            <div class="card" style="width: 18rem; border-color: green; border-width: 5px" >
-                <img class="card-img-top" src="images/{{ band.pictures }}" alt="Card image cap">
-                <div class="card-body" style="background-color: #5eb5e0;">
-                    <a href="https://webinfo.iutmontp.univ-montp2.fr/~niortk/concertProject/public/bands/{{band.id}}" class="btn btn-primary" style="background-color: purple; border-color: orange; border-width: 5px; color: magenta">{{ band.name }}</a>
-                </div>
-            </div>
-        {% endfor %}
+
+    <div class="container">
+    <h1> Plusieurs groupes se sont produits dans nos salles de concerts.</h1>
+    <div class="container">
+    {% for band in bands %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ asset('images/'~ band.picture) }}" alt="Card image for band">
+        <div class="card-body">
+            <p class="card-text"><a href="{{ path('band_show', {id: band.id}) }}">{{ band.name|e }}</a>
+            </p>
+        </div>
     </div>
+        </div>
+    {% endfor %}
+    </div>
+
 {% endblock %}
 

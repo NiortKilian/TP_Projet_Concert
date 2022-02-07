@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\HallRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,24 +18,26 @@ class Hall
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $adress;
+    private $capacity;
 
     /**
-     * @ORM\OneToMany(targetEntity=Concert::class, mappedBy="hall")
+     * @ORM\Column(type="boolean")
      */
-    private $concerts;
+    private $available;
 
-    public function __construct()
-    {
-        $this->concerts = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=ConcertHall::class, inversedBy="halls")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $concertHall;
+
 
     public function getId(): ?int
     {
@@ -49,52 +49,47 @@ class Hall
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getCapacity(): ?int
     {
-        return $this->adress;
+        return $this->capacity;
     }
 
-    public function setAdress(string $adress): self
+    public function setCapacity(int $capacity): self
     {
-        $this->adress = $adress;
+        $this->capacity = $capacity;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Concert[]
-     */
-    public function getConcerts(): Collection
+    public function getAvailable(): ?bool
     {
-        return $this->concerts;
+        return $this->available;
     }
 
-    public function addConcert(Concert $concert): self
+    public function setAvailable(bool $available): self
     {
-        if (!$this->concerts->contains($concert)) {
-            $this->concerts[] = $concert;
-            $concert->setHall($this);
-        }
+        $this->available = $available;
 
         return $this;
     }
 
-    public function removeConcert(Concert $concert): self
+    public function getConcertHall(): ?ConcertHall
     {
-        if ($this->concerts->removeElement($concert)) {
-            // set the owning side to null (unless already changed)
-            if ($concert->getHall() === $this) {
-                $concert->setHall(null);
-            }
-        }
+        return $this->concertHall;
+    }
+
+    public function setConcertHall(?ConcertHall $concertHall): self
+    {
+        $this->concertHall = $concertHall;
 
         return $this;
     }
+
 }

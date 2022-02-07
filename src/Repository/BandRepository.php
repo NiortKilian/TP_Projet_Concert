@@ -19,10 +19,10 @@ class BandRepository extends ServiceEntityRepository
         parent::__construct($registry, Band::class);
     }
 
-    // /**
-    //  * @return Band[] Returns an array of Band objects
-    //  */
-    /*
+     /**
+      * @return Band[] Returns an array of Band objects
+      */
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
@@ -34,7 +34,7 @@ class BandRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Band

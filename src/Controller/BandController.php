@@ -2,47 +2,47 @@
 
 namespace App\Controller;
 
-use App\Entity\Artist;
 use App\Entity\Band;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function Sodium\add;
 
 class BandController extends AbstractController
 {
+
     /**
-     * @Route("/band", name="band")
+     * Affiche une liste de groupe
+     *
+     * @return Response
+     *
+     * @Route("/bands", name="band_list")
      */
-    public function index(): Response
+    public function bandsAll(): Response
     {
-        return $this->render('band/index.html.twig', [
-            'controller_name' => 'BandController',
-        ]);
-    }
-    /**
-     * @Route("/bands", name="bands_list")
-     */
-    public function listAction(): Response
-    {
-        $bandRepo = $this->getDoctrine()->getRepository(Band::class);
-        $band = $bandRepo->findAll();
+        $repository = $this->getDoctrine()->getRepository(Band::class);
+        $bands = $repository->findAll();
+
         return $this->render('band/list.html.twig', [
-            'controller_name' => 'BandController',
-            'bands' => $band,
-        ]);
+                'bands' => $bands
+            ]
+        );
     }
 
     /**
-     * @Route("/bands/{id}", name="band_show")
+     * Affiche une liste de groupe
+     *
+     * @param int $id
+     * @return Response
+     *
+     * @Route("/band/{id}", name="band_show")
      */
-    public function showAction($id): Response
+    public function list(int $id): Response
     {
-        $artistRepo = $this->getDoctrine()->getRepository(Artist::class);
-        $artist = $artistRepo->findBy(["band"=>$id]);
-        return $this->render('band/show.html.twig',[
-           'controller-name' => 'BandController',
-           'artists' => $artist,
-        ]);
+        $repository = $this->getDoctrine()->getRepository(Band::class);
+
+        return $this->render('band/band.html.twig', [
+                'band' => $repository->find($id)
+            ]
+        );
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ConcertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ *
  * @ORM\Entity(repositoryClass=ConcertRepository::class)
  */
 class Concert
@@ -18,59 +21,34 @@ class Concert
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pictures;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="concerts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $band;
+    private $tourName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Hall::class, inversedBy="concerts")
+     * @ORM\OneToOne(targetEntity=Hall::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $hall;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Band::class, inversedBy="concerts")
+     */
+    private $bands;
+
+    public function __construct()
+    {
+        $this->bands = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPictures(): ?string
-    {
-        return $this->pictures;
-    }
-
-    public function setPictures(?string $pictures): self
-    {
-        $this->pictures = $pictures;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -85,26 +63,50 @@ class Concert
         return $this;
     }
 
-    public function getBand(): ?band
+    public function getTourName(): ?string
     {
-        return $this->band;
+        return $this->tourName;
     }
 
-    public function setBand(?band $band): self
+    public function setTourName(?string $tourName): self
     {
-        $this->band = $band;
+        $this->tourName = $tourName;
 
         return $this;
     }
 
-    public function getHall(): ?hall
+    public function getHall(): ?Hall
     {
         return $this->hall;
     }
 
-    public function setHall(?hall $hall): self
+    public function setHall(Hall $hall): self
     {
         $this->hall = $hall;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Band[]
+     */
+    public function getBands(): Collection
+    {
+        return $this->bands;
+    }
+
+    public function addBand(Band $band): self
+    {
+        if (!$this->bands->contains($band)) {
+            $this->bands[] = $band;
+        }
+
+        return $this;
+    }
+
+    public function removeBand(Band $band): self
+    {
+        $this->bands->removeElement($band);
 
         return $this;
     }
